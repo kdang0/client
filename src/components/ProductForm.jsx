@@ -26,12 +26,12 @@ const ProductForm = () => {
       </p>
 
       <p>
-        <label>Price:</label>
+        <label>Price: </label>
         <input type="text" onChange={e=>setProduct({...product, price:e.target.value})}/>
       </p>
 
       <p>
-        <label>Description</label>
+        <label>Description: </label>
         <input type="text" onChange={e=>setProduct({...product, description:e.target.value})}/>
       </p>
 
