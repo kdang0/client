@@ -1,12 +1,14 @@
-import React, {useState} from 'react'
+import React, {useState} from 'react';
 import axios from 'axios';
 
-const ProductForm = () => {
+
+const ProductForm = (props) => {
   const [product, setProduct] = useState({
     title: "",
     price: "",
     description: ""
   });
+  const { addProduct } = props
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -15,7 +17,7 @@ const ProductForm = () => {
       price: product["price"],
       description: product["description"]
     })
-      .then(res => console.log("Response: ", res))
+      .then(addProduct(product))
       .catch(err => console.log("Error: ", err))
   }
   return (

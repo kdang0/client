@@ -10,16 +10,26 @@ const Main = () => {
     useEffect(() =>{
         axios.get('http://localhost:8000/api/products')
             .then(res=>{
+                console.log('hi')
                 setProducts(res.data);
                 setLoaded(true);
             })
             .catch(err => console.error(err));
-    }, []);
+    }, [products.length]);
+
+
+    const addList = product => {
+      setProducts([...products, product]);
+    }
+
+    const removeFromDom = productId => {
+      setProducts(products.filter(product => product._id !== productId))
+    }
   return (
     <div>
-        <ProductForm/>
+        <ProductForm addProduct = {addList}/>
         <hr/>
-        {loaded && <ProductList products={products}/>}
+        {loaded && <ProductList products={products} removeFromDom={removeFromDom}/>}
     </div>
   )
 }
