@@ -10,16 +10,18 @@ const Main = () => {
     useEffect(() =>{
         axios.get('http://localhost:8000/api/products')
             .then(res=>{
-                console.log('hi')
                 setProducts(res.data);
                 setLoaded(true);
             })
             .catch(err => console.error(err));
-    }, [products.length]);
+    }, []);
 
 
-    const addList = product => {
-      setProducts([...products, product]);
+    const createProduct = product => {
+      axios.post('http://localhost:8000/api/products/new', product)
+          .then(res => {
+            setProducts([...products, res.data.product]);
+          })
     }
 
     const removeFromDom = productId => {
@@ -27,7 +29,7 @@ const Main = () => {
     }
   return (
     <div>
-        <ProductForm addProduct = {addList}/>
+        <ProductForm initialTitle="" initialPrice="" initialDescription="" onSubmitProp={createProduct}/>
         <hr/>
         {loaded && <ProductList products={products} removeFromDom={removeFromDom}/>}
     </div>
